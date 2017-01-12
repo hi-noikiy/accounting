@@ -3,9 +3,7 @@ const co = require('co');
 const bodyParser = require('koa-bodyparser');
 const compress = require('koa-compress');
 const zlib = require('zlib');
-const _ = require('koa-route');
-
-const api = require('./src/api');
+const routes = require('./src/route');
 
 const app = new Koa();
 
@@ -33,7 +31,9 @@ app.use(co.wrap(function* (ctx, next) {
 }));
 
 // api
-app.use(_.get('/api/out', api.out));
+routes.forEach(route => {
+  app.use(route);
+});
 
 const port = process.env.PORT || 9876;
 app.listen(port);

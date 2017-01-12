@@ -1,12 +1,3 @@
-const co = require('co');
+const v1 = require('./v1');
 
-module.exports = {
-  out: co.wrap(function* (ctx, next) {
-    const start = new Date();
-    yield next();
-    const ms = new Date() - start;
-    ctx.body = `${ctx.method} ${ctx.url} - ${ms}ms`;
-    console.log('正常输出');
-    return 'hehe';
-  }),
-};
+exports.v1 = v1;
