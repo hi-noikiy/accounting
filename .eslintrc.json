@@ -1,0 +1,21 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2016,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "extends": "airbnb-base",
+  "rules": {
+    "no-param-reassign": ["error", {
+      "props": false
+    }],
+    "arrow-parens": ["error", "as-needed"],
+    "semi": 2
+  }
+}
