@@ -25,7 +25,7 @@ app.use(co.wrap(function* (ctx, next) {
 // 404 处理
 app.use(co.wrap(function* (ctx, next) {
   yield next();
-  if (ctx.body === undefined) {
+  if (ctx.body === undefined && ctx.length !== 0) {
     ctx.body = '默认输出.';
   }
 }));
