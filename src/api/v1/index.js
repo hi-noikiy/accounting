@@ -1,5 +1,5 @@
 const co = require('co');
-const error = require('./error');
+const ExpectedError = require('../error');
 
 module.exports = {
   out: co.wrap(function* (ctx, next) {
@@ -47,8 +47,7 @@ module.exports = {
     console.log(`请求编辑 id 为 ${id} 的科目`);
     const valid = id > 0;
     if (!valid) {
-      ctx.body = JSON.stringify(error(1004));
-      return;
+      throw new ExpectedError(1004);
     }
     ctx.response.status = 204;
     ctx.length = 0;
@@ -58,8 +57,7 @@ module.exports = {
     console.log(`请求删除 id 为 ${id} 的科目`);
     const valid = id > 0;
     if (!valid) {
-      ctx.body = JSON.stringify(error());
-      return;
+      throw new ExpectedError();
     }
     ctx.response.status = 204;
     ctx.length = 0;

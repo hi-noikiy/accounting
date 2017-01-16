@@ -16,17 +16,27 @@ app.use(compress({
   flush: zlib.Z_SYNC_FLUSH,
 }));
 
-// 修改 res headers
-app.use(co.wrap(function* (ctx, next) {
+app.use(co.wrap(function* resHeadersMiddleware(ctx, next) {
   ctx.type = 'application/json; charset=utf-8';
   yield next();
 }));
 
-// 404 处理
-app.use(co.wrap(function* (ctx, next) {
+app.use(co.wrap(function* defaultOutMiddleware(ctx, next) {
   yield next();
   if (ctx.body === undefined && ctx.length !== 0) {
     ctx.body = '默认输出.';
+  }
+}));
+
+app.use(co.wrap(function* errorHandlingMiddleware(ctx, next) {
+  try {
+    yield next();
+  } catch (err) {
+    if (err.expected) {
+      ctx.body = JSON.stringify(err.json());
+    } else {
+      console.log(err);
+    }
   }
 }));
 
