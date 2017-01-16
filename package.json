@@ -5,6 +5,9 @@
   "engines": {
     "node": "6.9.4"
   },
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "co": "^4.6.0",
     "koa": "^2.0.0-alpha.7",
