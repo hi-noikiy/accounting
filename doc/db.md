@@ -67,3 +67,21 @@ CREATE INDEX journal_entries_vou_id_index ON journal_entries (vou_id);
 ### 表结构造成的限制:
 
 科目 ID 不得大于 `2147483647`.
+
+---
+
+## 部门 department
+
+```
+CREATE TABLE departments (
+    id SERIAL PRIMARY KEY, /* 部门 dep_id */
+    name text NOT NULL UNIQUE, /* 部门名称 */
+    num varchar(9) NOT NULL UNIQUE, /* 编号 */
+    pinyin_num varchar(20) UNIQUE, /* 拼音编号 */
+    pid integer NOT NULL, /* 父部门 ID */
+    orders smallint, /* 权重 */
+    timestamp text
+);
+```
+
+`pid` 为 `0` 时为顶级部门.

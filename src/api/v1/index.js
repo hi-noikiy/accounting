@@ -1,8 +1,9 @@
 const co = require('co');
 const accounting = require('../../accounting');
+const department = require('./department');
 const ExpectedError = require('../error');
 
-module.exports = {
+module.exports = Object.assign({
   out: co.wrap(function* (ctx, next) {
     const start = new Date();
     yield next();
@@ -43,4 +44,4 @@ module.exports = {
     ctx.response.status = 204;
     ctx.length = 0;
   },
-};
+}, department);

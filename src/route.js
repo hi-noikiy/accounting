@@ -8,4 +8,8 @@ module.exports = [
   _.post('/api/accounting/title', api.newTitle),
   _.patch('/api/accounting/title/:id', api.editTitle),
   _.delete('/api/accounting/title/:id', api.deleteTitle),
+
+  _.get('/api/departments', api.getDepartmentsList),
+  _.post('/api/department', api.newDepartment),
+  _.delete('/api/department/:id', api.deleteDepartment),
 ];
