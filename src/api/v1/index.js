@@ -1,4 +1,5 @@
 const co = require('co');
+const accounting = require('../../accounting');
 const ExpectedError = require('../error');
 
 module.exports = {
@@ -11,34 +12,14 @@ module.exports = {
     return 'hehe';
   }),
 
-  getTitlesList: ctx => {
-    const body = [
-      {
-        id: '1',
-        name: '资产',
-        pid: '0',
-        level: 1,
-        account: 0,
-      },
-      {
-        id: '1001',
-        name: '库存现金',
-        pid: '1',
-        level: 1,
-        account: 1,
-      },
-      {
-        id: '10051',
-        name: '支付宝余额',
-        pid: '1',
-        level: 5,
-        account: 1,
-      },
-    ];
-    ctx.body = JSON.stringify(body);
-  },
+  getTitlesList: ctx => accounting.titles.list().then(res => {
+    ctx.body = JSON.stringify(res.rows);
+  }),
 
   newTitle: ctx => {
+    accounting.titles.create(ctx.request.body).then(res => {
+      console.log(res);
+    });
     ctx.response.status = 201;
     ctx.length = 0;
   },
