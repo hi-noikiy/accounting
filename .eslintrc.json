@@ -15,6 +15,11 @@
     "no-param-reassign": ["error", {
       "props": false
     }],
+    "comma-dangle": ["error", {
+      "arrays": "always",
+      "objects": "always",
+      "functions": "never"
+    }],
     "arrow-parens": ["error", "as-needed"],
     "semi": 2
   }
