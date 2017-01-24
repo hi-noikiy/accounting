@@ -28,8 +28,7 @@ module.exports = co.wrap(function* (query) {
     return false;
   }
   try {
-    const client = yield pool.connect();
-    return yield client.query(query.text, query.values);
+    return yield pool.query(query.text, query.values);
   } catch (error) {
     return error;
   }
