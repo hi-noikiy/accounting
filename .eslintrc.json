@@ -16,8 +16,8 @@
       "props": false
     }],
     "comma-dangle": ["error", {
-      "arrays": "always",
-      "objects": "always",
+      "arrays": "only-multiline",
+      "objects": "only-multiline",
       "functions": "never"
     }],
     "arrow-parens": ["error", "as-needed"],

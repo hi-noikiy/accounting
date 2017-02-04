@@ -18,8 +18,8 @@ module.exports = {
   create(item) {
     // TODO 选择性接收 id order 属性值
     const query = {
-      text: 'INSERT INTO departments (name, num, pid, orders)\
-             VALUES ($1, $2, $3, $4) RETURNING id;',
+      text: `INSERT INTO departments (name, num, pid, orders)
+             VALUES ($1, $2, $3, $4) RETURNING id;`,
       values: [item.name, item.num, item.pid, item.orders],
     };
     return sql(query);
