@@ -1,7 +1,7 @@
 {
-  "name": "accounting",
-  "description": "a accounting system api serve.",
-  "version": "0.0.2",
+  "name": "z1-node",
+  "description": "Z1 系统 Node.js 版.",
+  "version": "0.0.3",
   "private": true,
   "engines": {
     "node": "6.9.4"
