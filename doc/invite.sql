@@ -5,7 +5,7 @@ CREATE TABLE invite (
     id SERIAL PRIMARY KEY, /* 邀请 inv_id */
     invitee text NOT NULL UNIQUE, /* 受邀者 */
     inviter text NOT NULL, /* 邀请者 */
-    add_time timestamp DEFAULT CURRENT_TIMESTAMP
+    add_time bigint DEFAULT (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) * 1000)::bigint
 );
 
 -- ⬇️ 暂未使用
@@ -30,13 +30,13 @@ INSERT INTO invite (invitee, inviter) VALUES
 ('王五', '九店');
 
 -- 查看测试数据
-SELECT id, (EXTRACT(EPOCH FROM add_time) * 1000)::bigint AS "time"
+SELECT id, add_time
 FROM invite;
 
 -- 调试: 查看邀请统计
 SELECT inviter, COUNT(id) AS count_num
 FROM invite
-WHERE add_time > to_timestamp(999) AND add_time < to_timestamp(1486368515261 / 1000)
+WHERE add_time > 999 AND add_time < 1486374596563
 GROUP BY inviter;
 
 -- 调试: 新增邀请
