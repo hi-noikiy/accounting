@@ -12,4 +12,7 @@ module.exports = [
   _.get('/api/departments', api.getDepartmentsList),
   _.post('/api/department', api.newDepartment),
   _.delete('/api/department/:id', api.deleteDepartment),
+
+  _.get('/api/invite/count', api.countInviteInfo),
+  _.post('/api/invite', api.newInvite),
 ];

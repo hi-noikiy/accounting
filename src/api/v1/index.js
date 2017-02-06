@@ -2,8 +2,12 @@ const co = require('co');
 
 const accounting = require('./accounting');
 const department = require('./department');
+const invite = require('./invite');
 
 module.exports = Object.assign(
+  accounting,
+  department,
+  invite,
   {
     out: co.wrap(function* (ctx, next) {
       const start = new Date();
@@ -13,7 +17,5 @@ module.exports = Object.assign(
       console.log('正常输出');
       return 'hehe';
     }),
-  },
-  accounting,
-  department
+  }
 );
