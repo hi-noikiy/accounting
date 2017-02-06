@@ -8,7 +8,8 @@ module.exports = {
    */
   count(startTime = 1, endTime = Date.now()) {
     const query = {
-      text: `SELECT inviter, COUNT(id) AS "countNum" FROM invite
+      text: `SELECT inviter, CAST (COUNT(id) as integer) AS "countNum"
+             FROM invite
              WHERE add_time > $1 AND add_time < $2
              GROUP BY inviter;`,
       values: [startTime, endTime]
