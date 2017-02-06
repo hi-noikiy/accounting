@@ -84,4 +84,15 @@ CREATE TABLE departments (
 );
 ```
 
-`pid` 为 `0` 时为顶级部门.
+备注: `pid` 为 `0` 时为顶级部门.
+
+## 邀请 invite
+
+```
+CREATE TABLE invite (
+    id SERIAL PRIMARY KEY, /* 邀请 inv_id */
+    invitee text NOT NULL UNIQUE, /* 受邀者 */
+    inviter text NOT NULL, /* 邀请者 */
+    add_time timestamp DEFAULT CURRENT_TIMESTAMP
+);
+```
