@@ -31,7 +31,7 @@ module.exports = {
    */
   delete(id) {
     if (!id) {
-      return false;
+      return () => false;
     }
     const query = {
       text: 'DELETE FROM departments WHERE id = $1;',

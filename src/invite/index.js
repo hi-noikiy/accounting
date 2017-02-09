@@ -24,7 +24,7 @@ module.exports = {
    */
   create(invitee, inviter) {
     if (!invitee || !invitee) {
-      return false;
+      return () => false;
     }
     const query = {
       text: `INSERT INTO invite (invitee, inviter)

@@ -20,7 +20,7 @@ const titles = {
 
   create(title) {
     if (!title) {
-      return false;
+      return () => false;
     }
     const query = {
       text: 'INSERT INTO titles (id, name, pid, account, level)\
