@@ -1,9 +1,9 @@
+require('dotenv').config();
 const co = require('co');
 const pg = require('pg');
 const url = require('url');
-const defaultPostgreUrl = require('./.env').postgreUrl;
 
-const postgreUrl = process.env.DATABASE_URL || defaultPostgreUrl;
+const postgreUrl = process.env.DATABASE_URL;
 const params = url.parse(postgreUrl);
 
 const auth = params.auth.split(':');
