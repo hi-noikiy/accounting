@@ -18,7 +18,18 @@ app.use(compress({
 
 app.use(co.wrap(function* resHeadersMiddleware(ctx, next) {
   ctx.type = 'application/json; charset=utf-8';
+  ctx.set('Access-Control-Allow-Origin', '*');
+  ctx.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PATCH');
+  ctx.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
   yield next();
+}));
+
+app.use(co.wrap(function* optionsHandleMiddleware(ctx, next) {
+  if (ctx.request.method === 'OPTIONS') {
+    ctx.body = '';
+  } else {
+    yield next();
+  }
 }));
 
 app.use(co.wrap(function* defaultOutMiddleware(ctx, next) {
