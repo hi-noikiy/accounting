@@ -36,6 +36,7 @@ app.use(co.wrap(function* defaultOutMiddleware(ctx, next) {
   yield next();
   if (ctx.body === undefined && ctx.length !== 0) {
     ctx.body = '默认输出.';
+    ctx.response.status = 404;
   }
 }));
 
@@ -45,6 +46,10 @@ app.use(co.wrap(function* errorHandlingMiddleware(ctx, next) {
   } catch (err) {
     if (err.expected) {
       ctx.body = JSON.stringify(err.json());
+      const statusCode = err.statusCode();
+      if (statusCode) {
+        ctx.response.status = statusCode;
+      }
     } else {
       console.log(err);
     }
