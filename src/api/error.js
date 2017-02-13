@@ -17,7 +17,7 @@ class ExpectedError extends Error {
   }
 
   statusCode() {
-    return errorInfo[this.message].statusCode;
+    return errorInfo[this.message].statusCode || false;
   }
 }
 ExpectedError.prototype.name = 'Expected Error';
