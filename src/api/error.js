@@ -17,7 +17,11 @@ class ExpectedError extends Error {
   }
 
   statusCode() {
-    return errorInfo[this.message].statusCode || false;
+    const hasStatusCode = Object.prototype.hasOwnProperty.call(errorInfo[this.message], 'statusCode');
+    if (hasStatusCode) {
+      return errorInfo[this.message].statusCode;
+    }
+    return undefined;
   }
 }
 ExpectedError.prototype.name = 'Expected Error';
