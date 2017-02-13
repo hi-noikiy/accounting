@@ -23,7 +23,8 @@ module.exports = {
         // TODO: 制定错误号
         throw new ExpectedError();
       }
-      ctx.response.status = 204;
+      ctx.status = 204;
+      ctx.body = '';
     });
   }
 };
