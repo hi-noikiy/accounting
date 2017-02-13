@@ -20,7 +20,9 @@ module.exports = {
     }
     return invite.create(b.userID, b.depID).then(res => {
       if (res.rowCount !== 1) {
-        // TODO: 制定错误号
+        if (res.code === '23505') {
+          throw new ExpectedError(1005);
+        }
         throw new ExpectedError();
       }
       ctx.status = 204;
