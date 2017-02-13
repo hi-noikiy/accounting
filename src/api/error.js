@@ -5,11 +5,16 @@ const errorInfo = {
 };
 
 class ExpectedError extends Error {
-  json() {
+  id() {
     let id = this.message || 9999;
     if (errorInfo[id] === undefined) {
       id = 9999;
     }
+    return id;
+  }
+
+  json() {
+    const id = this.id();
     return {
       code: id,
       info: errorInfo[id].text,
@@ -17,11 +22,8 @@ class ExpectedError extends Error {
   }
 
   statusCode() {
-    const hasStatusCode = Object.prototype.hasOwnProperty.call(errorInfo[this.message], 'statusCode');
-    if (hasStatusCode) {
-      return errorInfo[this.message].statusCode;
-    }
-    return undefined;
+    const id = this.id();
+    return errorInfo[id].statusCode;
   }
 }
 ExpectedError.prototype.name = 'Expected Error';
