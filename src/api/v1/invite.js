@@ -1,4 +1,4 @@
-const invite = require('../../invite');
+const invite = require('../../data/invite');
 const ExpectedError = require('../error');
 
 module.exports = {

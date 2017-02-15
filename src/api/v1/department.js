@@ -1,4 +1,4 @@
-const department = require('../../department');
+const department = require('../../data/department');
 const ExpectedError = require('../error');
 
 module.exports = {

@@ -1,4 +1,4 @@
-const accounting = require('../../accounting');
+const accounting = require('../../data/accounting');
 const ExpectedError = require('../error');
 
 module.exports = {
