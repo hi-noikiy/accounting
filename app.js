@@ -2,6 +2,7 @@ const Koa = require('koa');
 const co = require('co');
 const bodyParser = require('koa-bodyparser');
 const compress = require('koa-compress');
+const session = require('koa-generic-session');
 const zlib = require('zlib');
 const routes = require('./src/route');
 
@@ -37,6 +38,26 @@ app.use(co.wrap(function* defaultOutMiddleware(ctx, next) {
   if (ctx.body === undefined && ctx.length !== 0) {
     ctx.body = '默认输出.';
     ctx.response.status = 404;
+  }
+}));
+
+app.keys = [process.env.APP_KEY1, process.env.APP_KEY2];
+app.use(session({
+  ttl: 7200,
+  sessionIdStore: {
+    get() {
+      return this.header['x-gy-session-id'] || '';
+    },
+
+    set(sid) {
+      this.body = JSON.stringify({
+        sessionId: sid
+      });
+    },
+
+    reset() {
+      console.log('重置该 session 后被调用');
+    }
   }
 }));
 
