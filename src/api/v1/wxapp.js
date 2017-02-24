@@ -57,6 +57,9 @@ module.exports = {
       }
       ctx.session = unionPack;
       ctx.session.conut = 1;
+      ctx.body = {
+        outSessionId: true
+      };
     });
-  }
+  },
 };

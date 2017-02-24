@@ -50,6 +50,9 @@ app.use(session({
     },
 
     set(sid) {
+      if (!this.body.outSessionId) {
+        return;
+      }
       this.body = JSON.stringify({
         sessionId: sid
       });
