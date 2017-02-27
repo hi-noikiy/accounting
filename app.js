@@ -50,7 +50,7 @@ app.use(session({
     },
 
     set(sid) {
-      if (!this.body.outSessionId) {
+      if (!this.body || !this.body.outSessionId) {
         return;
       }
       this.body = JSON.stringify({

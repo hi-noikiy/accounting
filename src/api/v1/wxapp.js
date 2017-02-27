@@ -4,8 +4,19 @@ const WXBizDataCrypt = require('../../lib/WXBizDataCrypt');
 
 module.exports = {
   wxappLogin: ctx => {
+    function changeSession() {
+      if (ctx.session.conut) {
+        ctx.session.conut += 1;
+      } else {
+        ctx.session.conut = 1;
+      }
+      ctx.body = {
+        outSessionId: true
+      };
+    }
+
     if (ctx.session.unionId) {
-      ctx.session.conut += 1;
+      changeSession();
       return true;
     }
 
@@ -56,10 +67,7 @@ module.exports = {
         return;
       }
       ctx.session = unionPack;
-      ctx.session.conut = 1;
-      ctx.body = {
-        outSessionId: true
-      };
+      changeSession();
     });
   },
 };
