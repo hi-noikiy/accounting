@@ -17,4 +17,9 @@ module.exports = [
   _.post('/api/invite', api.newInvite),
 
   _.post('/api/wxapp/login', api.wxappLogin),
+
+  _.get('/api/user/info', api.getUserInfo),
+  _.post('/api/user/phone-num', api.bindPhoneNum),
+
+  _.post('/api/sms/verify-code', api.sendVerifyCode),
 ];
