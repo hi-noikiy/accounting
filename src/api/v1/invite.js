@@ -15,10 +15,15 @@ module.exports = {
 
   newInvite: ctx => {
     const b = ctx.request.body;
-    if (!b.userID || !b.depID) {
+    const s = ctx.session;
+    if (!Object.prototype.hasOwnProperty.call(b, 'inviter') ||
+        !Object.prototype.hasOwnProperty.call(s, 'unionId')) {
       throw new ExpectedError(1004);
     }
-    return invite.create(b.userID, b.depID).then(res => {
+    const inviter = b.inviter;
+    const invitee = s.unionId;
+    return invite.create(invitee, inviter).then(res => {
+      console.log(res);
       if (res.rowCount !== 1) {
         if (res.code === '23505') {
           throw new ExpectedError(1005);
@@ -28,5 +33,19 @@ module.exports = {
       ctx.status = 204;
       ctx.body = '';
     });
-  }
+  },
+
+  checkInvite: ctx => {
+    const s = ctx.session;
+    if (!Object.prototype.hasOwnProperty.call(s, 'unionId')) {
+      throw new ExpectedError();
+    }
+    const invitee = s.unionId;
+    return invite.view(invitee).then(info => {
+      if (!info) {
+        throw new ExpectedError(2003);
+      }
+      ctx.body = info;
+    });
+  },
 };

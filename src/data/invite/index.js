@@ -27,10 +27,33 @@ module.exports = {
       return () => false;
     }
     const query = {
-      text: `INSERT INTO invite (invitee, inviter)
+      text: `INSERT INTO ${sql.prefix}invite (invitee, inviter)
              VALUES ($1, $2);`,
       values: [invitee, inviter]
     };
     return sql(query);
+  },
+
+  /**
+   * 查看一则邀请
+   * @param {string} invitee 被邀请者(用户 ID)
+   * @param {string} inviter 邀请者(店铺 ID)
+   */
+  view(invitee, type = 1) {
+    if (!invitee) {
+      return false;
+    }
+    const query = {
+      text: `SELECT *
+             FROM ${sql.prefix}invite
+             WHERE invitee = $1 AND type = $2;`,
+      values: [invitee, type]
+    };
+    return sql(query).then(res => {
+      if (res.rowCount !== 1) {
+        return false;
+      }
+      return res.rows[0];
+    });
   }
 };

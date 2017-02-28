@@ -15,6 +15,7 @@ module.exports = [
 
   _.get('/api/invite/count', api.countInviteInfo),
   _.post('/api/invite', api.newInvite),
+  _.get('/api/invite', api.checkInvite),
 
   _.post('/api/wxapp/login', api.wxappLogin),
 
