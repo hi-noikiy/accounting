@@ -93,6 +93,8 @@ CREATE TABLE invite (
     id SERIAL PRIMARY KEY, /* 邀请 inv_id */
     invitee text NOT NULL UNIQUE, /* 受邀者 */
     inviter text NOT NULL, /* 邀请者 */
-    add_time bigint DEFAULT (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) * 1000)::bigint
+    type integer DEFAULT 1, /* 邀请类型 */
+    add_time bigint DEFAULT (EXTRACT(EPOCH FROM CURRENT_TIMESTAMP) * 1000)::bigint,
+    UNIQUE (invitee, type)
 );
 ```
