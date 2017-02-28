@@ -8,7 +8,6 @@ module.exports = {
   getUserInfo(ctx) {
     const unionId = ctx.session.unionId;
     const userInfo = user.userInfo(unionId).then(res => {
-      console.log(res);
       if (!res) {
         throw new ExpectedError(2001);
       }
@@ -51,8 +50,8 @@ module.exports = {
       return user.checkPhoneNum(phoneNum);
     }).then(existing => {
       const unionId = ctx.session.unionId;
-      if (unionId) {
-        throw new ExpectedError();
+      if (!unionId) {
+        throw new ExpectedError(2004);
       }
       if (existing) {
         return user.bindUnionId(phoneNum, unionId);
