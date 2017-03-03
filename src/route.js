@@ -23,4 +23,6 @@ module.exports = [
   _.post('/api/user/phone-num', api.bindPhoneNum),
 
   _.post('/api/sms/verify-code', api.sendVerifyCode),
+
+  _.get('/api/store/:id', api.getStoreInfo),
 ];

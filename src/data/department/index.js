@@ -1,4 +1,5 @@
 const sql = require('../postgresql');
+const http = require('http');
 
 module.exports = {
   /**
@@ -39,4 +40,35 @@ module.exports = {
     };
     return sql(query);
   },
+
+  /**
+   * 部门详情
+   * @param {Number} id 要查看部门详情的部门 ID
+   */
+  view(id) {
+    return new Promise(resolve => {
+      http.get(`http://jxc.zsqk.com.cn/number/${id}/department`, res => {
+        let rawData = '';
+        res.on('data', chunk => {
+          rawData += chunk;
+        });
+        res.on('end', () => {
+          try {
+            const parsedData = JSON.parse(rawData);
+            const info = parsedData.result.department[0];
+            resolve({
+              id: info.departmentNumber,
+              name: info.departmentName,
+            });
+          } catch (e) {
+            console.log(e.message);
+          }
+        });
+      });
+      // resolve({
+      //   id,
+      //   name: '恒信店'
+      // });
+    });
+  }
 };

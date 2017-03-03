@@ -5,6 +5,7 @@ const department = require('./department');
 const invite = require('./invite');
 const wxapp = require('./wxapp');
 const user = require('./user');
+const store = require('./store');
 
 module.exports = Object.assign(
   accounting,
@@ -12,6 +13,7 @@ module.exports = Object.assign(
   invite,
   wxapp,
   user,
+  store,
   {
     out: co.wrap(function* (ctx, next) {
       const start = new Date();
