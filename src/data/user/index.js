@@ -140,14 +140,48 @@ module.exports = {
    * 注册新用户
    * @param {string} phoneNum
    * @param {string} unionId
+   * @param {string} ua
+   * @param {string} ip
    */
-  userSignup(phoneNum, unionId) {
+  userSignup(phoneNum, unionId, ip = '', ua = 'wxapp') {
     // 参考 lanmiao POST user/phone 代码, 主要在 IP, UA 等信息上不同
-    const query = {
-      text: `INSERT INTO products (product_no, name, price)
-             VALUES (1, 'Cheese', 9.99);`,
-      values: [unionId]
+
+    const postData = querystring.stringify({
+      phone: phoneNum,
+      wxUnionId: unionId,
+      userUa: ua,
+      userIp: ip,
+    });
+    const options = {
+      hostname: process.env.GY_SERVER,
+      port: 80,
+      path: '/apis/wxapp/user/phone',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(postData)
+      }
     };
-    return sql(query);
+    return new Promise(resolve => {
+      const req = http.request(options, res => {
+        let rawData = '';
+        res.on('data', chunk => {
+          rawData += chunk;
+        });
+        res.on('end', () => {
+          const parsedData = JSON.parse(rawData);
+          if (parsedData.code !== '10000') {
+            console.log('出错了, ', parsedData);
+            resolve(false);
+          }
+          resolve(true);
+        });
+      });
+      req.on('error', e => {
+        console.log(`problem with request: ${e.message}`);
+      });
+      req.write(postData);
+      req.end();
+    });
   },
 };

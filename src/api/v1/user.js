@@ -56,7 +56,7 @@ module.exports = {
       if (existing) {
         return user.bindUnionId(phoneNum, unionId);
       }
-      return user.userSignup();
+      return user.userSignup(phoneNum, unionId, ctx.ip);
     }).then(binded => {
       if (!binded) {
         throw new ExpectedError();
