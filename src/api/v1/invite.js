@@ -17,11 +17,11 @@ module.exports = {
     const b = ctx.request.body;
     const s = ctx.session;
     if (!Object.prototype.hasOwnProperty.call(b, 'inviter') ||
-        !Object.prototype.hasOwnProperty.call(s, 'unionId')) {
+        !Object.prototype.hasOwnProperty.call(s, 'userId')) {
       throw new ExpectedError(1004);
     }
     const inviter = b.inviter;
-    const invitee = s.unionId;
+    const invitee = s.userId;
     return invite.create(invitee, inviter).then(res => {
       console.log(res);
       if (res.rowCount !== 1) {
@@ -37,10 +37,10 @@ module.exports = {
 
   checkInvite: ctx => {
     const s = ctx.session;
-    if (!Object.prototype.hasOwnProperty.call(s, 'unionId')) {
+    if (!Object.prototype.hasOwnProperty.call(s, 'userId')) {
       throw new ExpectedError();
     }
-    const invitee = s.unionId;
+    const invitee = s.userId;
     return invite.view(invitee).then(info => {
       if (!info) {
         throw new ExpectedError(2003);

@@ -11,6 +11,7 @@ module.exports = {
       if (!res) {
         throw new ExpectedError(2001);
       }
+      ctx.session.userId = res.userId;
       // TODO: 将 userId 写入 session 而不是传给前端
       // TODO: 将 unionId 写入 session 而不是传给前端
       ctx.body = res;
